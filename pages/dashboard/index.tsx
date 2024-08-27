@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import { Sidebar } from "@/components/SideBar";
 import { Home } from "@/components/Home";
-import { MedicoLegalCertificate } from "@/components/MedicoLegalCertificate";
+import { PoliceSurgeonOffice } from "@/components/PoliceSurgeonOffice";
 import { DnaReport } from "@/components/DnaReport";
 import { ChemicalExaminerReport } from "@/components/ChemicalExaminerReport";
 import { ForensicReport } from "@/components/ForensicReport";
@@ -14,13 +14,13 @@ const DashBoard = () => {
     switch (activeComponent) {
       case "home":
         return <Home />;
-      case "medico-legal-certificate":
-        return <MedicoLegalCertificate />;
-      case "dna-report":
+      case "police-surgeon-office":
+        return <PoliceSurgeonOffice />;
+      case "iccbs-dna-department":
         return <DnaReport />;
-      case "forensic-report":
+      case "police-forensic-department":
         return <ForensicReport />;
-      case "chemical-examiner-report":
+      case "chemical-examination-department":
         return <ChemicalExaminerReport />;
       default:
         return <Home />;
@@ -30,9 +30,9 @@ const DashBoard = () => {
   return (
     <div className="flex h-screen">
       <div className=" w-2/12 ">
-        <Sidebar setActiveComponent={setActiveComponent} />
+        <Sidebar setActiveComponent={setActiveComponent}  activeComponent={activeComponent}/>
       </div>
-      <div className="w-10/12 pr-8 pt-8 ">{renderComponent()}</div>
+      <div className="w-10/12  pt-8 mx-24 ">{renderComponent()}</div>
     </div>
   );
 };

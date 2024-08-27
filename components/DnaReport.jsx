@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { DashBoardTable } from "./DashBoardTable";
 import { MedicoLegalForm } from "./MedicoLegalForm";
 import { StatCard } from "./Card";
+import { columns, reports, statusOptions } from "@/config/medicoLegalData";
 
 const cases = [
   { name: "Active Cases", cases: 45 },
@@ -16,16 +17,25 @@ const DnaReport = () => {
   const renderComponent = () => {
     switch (component) {
       case "table":
-        return <DashBoardTable setComponent={setComponent} />;
+        return (
+          <DashBoardTable
+            setComponent={setComponent}
+            columns={columns}
+            reports={reports}
+            statusOptions={statusOptions}
+            showAddButton={true}
+
+          />
+        );
       case "form":
-        return <MedicoLegalForm set />;
+        return <MedicoLegalForm />;
       default:
         return <Home />;
     }
   };
   return (
     <div className="flex flex-col gap-8  w-full">
-      <h1 className="text-3xl font-bold">DNA Report</h1>
+      <h1 className="text-3xl font-bold">ICCBS DNA Department</h1>
       {component === "table" && (
         <div className="flex gap-8 w-full">
           {cases.map((caseItem) => (

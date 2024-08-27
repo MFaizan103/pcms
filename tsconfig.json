@@ -26,7 +26,7 @@
     "components/Card.jsx",
     "components/Navbar.jsx",
     "components/SideBar.jsx",
-    "config/data.js",
+    "config/dashBoardData.js",
     "components/SearchIcon.jsx",
     "components/VerticalDotsIcon.jsx"
   ],

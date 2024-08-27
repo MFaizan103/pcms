@@ -1,14 +1,13 @@
 import React from "react";
 import { StatCard } from "./Card";
 import { DashBoardTable } from "./DashBoardTable";
-import DefaultLayout from "@/layouts/default";
-import { Navbar } from "@nextui-org/navbar";
+import { columns, reports, statusOptions } from "../config/dashBoardData";
 
 const cases = [
-  { name: "Medico Legal Certificate", cases: 45 },
-  { name: "DNA Report", cases: 50 },
-  { name: "Forensic Report", cases: 20 },
-  { name: "Chemical Examiner Report", cases: 60 },
+  { name: "Police Surgeon Office", cases: 45 },
+  { name: "ICCBS DNA Department", cases: 50 },
+  { name: "Police Forensic Department", cases: 20 },
+  { name: "Chemical Examination Department", cases: 60 },
 ];
 const Home = () => {
   return (
@@ -26,7 +25,12 @@ const Home = () => {
           ))}
         </div>
         <div className="mt-8">
-          <DashBoardTable />
+          <DashBoardTable
+            showAddButton={false}
+            columns={columns}
+            reports={reports}
+            statusOptions={statusOptions}
+          />
         </div>
       </div>
     </>

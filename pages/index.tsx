@@ -1,9 +1,10 @@
 import { Link } from "@nextui-org/link";
 import { Button, Input } from "@nextui-org/react";
 import { Image } from "@nextui-org/image";
-
 import { siteConfig } from "@/config/site";
 import DefaultLayout from "@/layouts/default";
+
+
 export default function IndexPage() {
   return (
     <DefaultLayout>

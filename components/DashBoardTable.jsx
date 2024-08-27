@@ -13,20 +13,18 @@ import {
   DropdownMenu,
   DropdownItem,
   Chip,
-  User,
   Pagination,
 } from "@nextui-org/react";
 import { PlusIcon } from "./PlusIcon";
 import { VerticalDotsIcon } from "./VerticalDotsIcon";
 import { SearchIcon } from "./SearchIcon";
 import { ChevronDownIcon } from "./ChevronDownIcon";
-import { columns, users, statusOptions } from "../config/data";
 import { capitalize } from "../config/utils";
 
 const statusColorMap = {
   active: "primary",
-  completed: "success",
   pending: "warning",
+  completed: "success",
 };
 
 const INITIAL_VISIBLE_COLUMNS = [
@@ -35,12 +33,19 @@ const INITIAL_VISIBLE_COLUMNS = [
   "firNo",
   "date",
   "policeStation",
-  "submittedBy",
+  "enteredBy",
   "status",
+  "department",
   "actions",
 ];
 
-export function DashBoardTable({ setComponent }) {
+export function DashBoardTable({
+  setComponent,
+  showAddButton,
+  columns,
+  reports,
+  statusOptions,
+}) {
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = React.useState(
@@ -58,19 +63,18 @@ export function DashBoardTable({ setComponent }) {
 
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === "all") return columns;
-
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid)
     );
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...users];
+    let filteredReports = [...reports];
 
     if (hasSearchFilter) {
       const filterRegex = new RegExp(`^${filterValue}`);
-      filteredUsers = filteredUsers.filter(
-        (user) => filterRegex.test(user.firNo.toString())
+      filteredReports = filteredReports.filter(
+        (report) => filterRegex.test(report.firNo.toString())
         // user.firNo.toString().includes(filterValue.toString())
       );
     }
@@ -78,13 +82,13 @@ export function DashBoardTable({ setComponent }) {
       statusFilter !== "all" &&
       Array.from(statusFilter).length !== statusOptions.length
     ) {
-      filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status)
+      filteredReports = filteredReports.filter((report) =>
+        Array.from(statusFilter).includes(report.status)
       );
     }
 
-    return filteredUsers;
-  }, [users, filterValue, statusFilter]);
+    return filteredReports;
+  }, [reports, filterValue, statusFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -105,15 +109,15 @@ export function DashBoardTable({ setComponent }) {
     });
   }, [sortDescriptor, items]);
 
-  const renderCell = React.useCallback((user, columnKey) => {
-    const cellValue = user[columnKey];
+  const renderCell = React.useCallback((report, columnKey) => {
+    const cellValue = report[columnKey];
 
     switch (columnKey) {
       case "status":
         return (
           <Chip
             className="capitalize"
-            color={statusColorMap[user.status]}
+            color={statusColorMap[report.status]}
             size="sm"
             variant="flat"
           >
@@ -235,18 +239,20 @@ export function DashBoardTable({ setComponent }) {
                 ))}
               </DropdownMenu>
             </Dropdown> */}
-            <Button
-              color="primary"
-              onClick={() => setComponent("form")}
-              endContent={<PlusIcon />}
-            >
-              Add New Report
-            </Button>
+            {showAddButton && (
+              <Button
+                color="primary"
+                onClick={() => setComponent("form")}
+                endContent={<PlusIcon />}
+              >
+                Add New Report
+              </Button>
+            )}
           </div>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {users.length} users
+            Total {reports.length} cases
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
@@ -267,7 +273,7 @@ export function DashBoardTable({ setComponent }) {
     statusFilter,
     visibleColumns,
     onRowsPerPageChange,
-    users.length,
+    reports.length,
     onSearchChange,
     hasSearchFilter,
   ]);

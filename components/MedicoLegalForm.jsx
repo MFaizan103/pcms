@@ -1,24 +1,10 @@
 import { siteConfig } from "@/config/site";
 import { Input, Textarea } from "@nextui-org/input";
 import { Button, Select, SelectItem } from "@nextui-org/react";
-import Tabs from "@/components/Tabs";
 import Link from "next/link";
 import React from "react";
 
 const MedicoLegalForm = () => {
-  const investigationsAdvised = [
-    { type: "text", key: "X-Ray", label: "X-Ray" },
-    { type: "text", key: "U/S: Abdomen/Pelvis", label: "U/S: Abdomen/Pelvis" },
-    { type: "text", key: "CT Scan", label: "CT Scan" },
-    { type: "text", key: "Blood Sample", label: "Blood Sample" },
-    { type: "text", key: "Urine Sample", label: "Urine Sample" },
-    { type: "text", key: "Gastric Lavage", label: "Gastric Lavage" },
-    { type: "text", key: "Other", label: "Other" },
-    { type: "text", key: "Referal to", label: "Referal to" },
-    { type: "text", key: "Disoisal to MLC", label: "Disposal to MLC" },
-    { type: "text", key: "---ginal", label: "---ginal" },
-    { type: "text", key: "---oy", label: "---oy" },
-  ];
   const initialDetails = [
     {
       type: "text",
@@ -36,9 +22,50 @@ const MedicoLegalForm = () => {
       key: "Arrival Time",
     },
     {
-      type: "text",
+      type: "select",
       label: "Police Station",
-      key: "Police Station",
+      options: [
+        "Artillery Maidan Police Station",
+        "Bahadurabad Police Station",
+        "Boat Basin Police Station",
+        "Clifton Police Station",
+        "Defence Police Station",
+        "Ferozabad Police Station",
+        "Gulberg Police Station",
+        "Gulshan-e-Iqbal Police Station",
+        "Gulzar-e-Hijri Police Station",
+        "Jamshed Quarters Police Station",
+        "Korangi Industrial Area Police Station",
+        "Malir City Police Station",
+        "Mithadar Police Station",
+        "New Karachi Police Station",
+        "Orangi Town Police Station",
+        "Paposh Nagar Police Station",
+        "Shah Faisal Colony Police Station",
+        "Sharae Faisal Police Station",
+        "Soldier Bazaar Police Station",
+        "Surjani Town Police Station",
+        "Karachi South Police Station",
+        "Karachi East Police Station",
+        "Karachi West Police Station",
+        "Karachi Central Police Station",
+        "Korangi Police Station",
+        "Gulshan-e-Maymar Police Station",
+        "North Karachi Police Station",
+        "Kharadar Police Station",
+        "Lyari Police Station",
+        "Mochko Police Station",
+        "Malir Police Station",
+        "Baldia Town Police Station",
+        "Keamari Police Station",
+        "Landhi Police Station",
+        "Korangi Creek Police Station",
+        "Nazimabad Police Station",
+        "Nishtar Park Police Station",
+        "Shaheed-e-Millat Police Station",
+        "Tariq Road Police Station",
+        "Zaman Town Police Station",
+      ],
     },
     {
       type: "text",
@@ -66,6 +93,21 @@ const MedicoLegalForm = () => {
       key: "Examination done in the presence of",
     },
   ];
+
+  const investigationsAdvised = [
+    { type: "text", key: "X-Ray", label: "X-Ray" },
+    { type: "text", key: "U/S: Abdomen/Pelvis", label: "U/S: Abdomen/Pelvis" },
+    { type: "text", key: "CT Scan", label: "CT Scan" },
+    { type: "text", key: "Blood Sample", label: "Blood Sample" },
+    { type: "text", key: "Urine Sample", label: "Urine Sample" },
+    { type: "text", key: "Gastric Lavage", label: "Gastric Lavage" },
+    { type: "text", key: "Other", label: "Other" },
+    { type: "text", key: "Referal to", label: "Referal to" },
+    { type: "text", key: "Disoisal to MLC", label: "Disposal to MLC" },
+    { type: "text", key: "---ginal", label: "---ginal" },
+    { type: "text", key: "---oy", label: "---oy" },
+  ];
+
   const detailsOfVictim = [
     { type: "text", label: "Name" },
     { type: "text", label: "S/o. D/o. W/o" },
@@ -182,7 +224,6 @@ const MedicoLegalForm = () => {
 
   return (
     <>
-      <Tabs />
       <form
         action=""
         className=" mb-24 flex flex-col gap-8 justify-center items-center"
@@ -191,15 +232,48 @@ const MedicoLegalForm = () => {
           <h1 className="text-lg mb-4 font-bold ">Enter Initial Details</h1>
           <div className="flex flex-col flex-1 flex-wrap  gap-4">
             {/* INITIAL DETAILS */}
-            {initialDetails.map((item, index) => (
-              <Input
-                key={index}
-                type={item.type}
-                label={item.label}
-                size="md"
-                className="w-96"
-              />
-            ))}
+            {initialDetails.map((field, index) => {
+              switch (field.type) {
+                case "text":
+                case "date":
+                case "time":
+                  return (
+                    <Input
+                      key={index}
+                      type={field.type}
+                      label={field.label}
+                      size="md"
+                      className="w-96"
+                    />
+                  );
+
+                case "textarea":
+                  return (
+                    <Textarea
+                      key={index}
+                      label={field.label}
+                      size="md"
+                      className="w-96"
+                      placeholder={field.placeholder}
+                    />
+                  );
+                case "select":
+                  return (
+                    <Select
+                      key={index}
+                      label={field.label}
+                      size="md"
+                      className="w-96"
+                    >
+                      {field.options.map((option, index) => (
+                        <SelectItem key={index} value={option}>
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </Select>
+                  );
+              }
+            })}
           </div>
         </div>
 
@@ -209,15 +283,48 @@ const MedicoLegalForm = () => {
           </h1>
           <div className="flex flex-1 flex-col flex-wrap gap-4 ">
             {/* INVESTIGATION ADVISED */}
-            {investigationsAdvised.map((item, index) => (
-              <Input
-                key={index}
-                type={item.type}
-                label={item.label}
-                size="md"
-                className="w-96"
-              />
-            ))}
+            {investigationsAdvised.map((field, index) => {
+              switch (field.type) {
+                case "text":
+                case "date":
+                case "time":
+                  return (
+                    <Input
+                      key={index}
+                      type={field.type}
+                      label={field.label}
+                      size="md"
+                      className="w-96"
+                    />
+                  );
+
+                case "textarea":
+                  return (
+                    <Textarea
+                      key={index}
+                      label={field.label}
+                      size="md"
+                      className="w-96"
+                      placeholder={field.placeholder}
+                    />
+                  );
+                case "select":
+                  return (
+                    <Select
+                      key={index}
+                      label={field.label}
+                      size="md"
+                      className="w-96"
+                    >
+                      {field.options.map((option, index) => (
+                        <SelectItem key={index} value={option}>
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </Select>
+                  );
+              }
+            })}
           </div>
         </div>
 
