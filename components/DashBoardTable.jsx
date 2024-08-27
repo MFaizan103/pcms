@@ -24,9 +24,9 @@ import { columns, users, statusOptions } from "../config/data";
 import { capitalize } from "../config/utils";
 
 const statusColorMap = {
-  active: "success",
-  paused: "danger",
-  vacation: "warning",
+  active: "primary",
+  completed: "success",
+  pending: "warning",
 };
 
 const INITIAL_VISIBLE_COLUMNS = [
@@ -68,8 +68,10 @@ export function DashBoardTable({ setComponent }) {
     let filteredUsers = [...users];
 
     if (hasSearchFilter) {
-      filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase())
+      const filterRegex = new RegExp(`^${filterValue}`);
+      filteredUsers = filteredUsers.filter(
+        (user) => filterRegex.test(user.firNo.toString())
+        // user.firNo.toString().includes(filterValue.toString())
       );
     }
     if (
@@ -107,25 +109,6 @@ export function DashBoardTable({ setComponent }) {
     const cellValue = user[columnKey];
 
     switch (columnKey) {
-      case "name":
-        return (
-          <User
-            avatarProps={{ radius: "lg", src: user.avatar }}
-            description={user.email}
-            name={cellValue}
-          >
-            {user.email}
-          </User>
-        );
-      case "role":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{cellValue}</p>
-            <p className="text-bold text-tiny capitalize text-default-400">
-              {user.team}
-            </p>
-          </div>
-        );
       case "status":
         return (
           <Chip
@@ -228,8 +211,8 @@ export function DashBoardTable({ setComponent }) {
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <Dropdown>
-              <DropdownTrigger className="hidden sm:flex">
+            {/* <Dropdown>
+              <DropdownTrigger className="hidden sm:flex"> 
                 <Button
                   endContent={<ChevronDownIcon className="text-small" />}
                   variant="flat"
@@ -251,7 +234,7 @@ export function DashBoardTable({ setComponent }) {
                   </DropdownItem>
                 ))}
               </DropdownMenu>
-            </Dropdown>
+            </Dropdown> */}
             <Button
               color="primary"
               onClick={() => setComponent("form")}

@@ -14,6 +14,8 @@ const Home = () => {
   return (
     <>
       <div className="flex flex-col gap-8  w-full">
+        <h1 className="text-3xl font-bold">Dashboard</h1>
+
         <div className="flex gap-8 w-full">
           {cases.map((caseItem) => (
             <StatCard
@@ -23,7 +25,7 @@ const Home = () => {
             />
           ))}
         </div>
-        <div className="mt-16">
+        <div className="mt-8">
           <DashBoardTable />
         </div>
       </div>

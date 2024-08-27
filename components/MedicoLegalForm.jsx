@@ -1,5 +1,8 @@
+import { siteConfig } from "@/config/site";
 import { Input, Textarea } from "@nextui-org/input";
-import { Select, SelectItem } from "@nextui-org/react";
+import { Button, Select, SelectItem } from "@nextui-org/react";
+import Tabs from "@/components/Tabs";
+import Link from "next/link";
 import React from "react";
 
 const MedicoLegalForm = () => {
@@ -179,6 +182,7 @@ const MedicoLegalForm = () => {
 
   return (
     <>
+      <Tabs />
       <form
         action=""
         className=" mb-24 flex flex-col gap-8 justify-center items-center"
@@ -265,6 +269,18 @@ const MedicoLegalForm = () => {
             })}
           </div>
         </div>
+        <Button
+          fullWidth
+          as={Link}
+          color="primary"
+          href={siteConfig.links.dashboard}
+          radius="md"
+          size="lg"
+          variant="shadow"
+          className="w-96"
+        >
+          Add Report
+        </Button>
       </form>
     </>
   );
