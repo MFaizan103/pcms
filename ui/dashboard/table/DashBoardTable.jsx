@@ -15,11 +15,11 @@ import {
   Chip,
   Pagination,
 } from "@nextui-org/react";
-import { PlusIcon } from "./PlusIcon";
-import { VerticalDotsIcon } from "./VerticalDotsIcon";
-import { SearchIcon } from "./SearchIcon";
-import { ChevronDownIcon } from "./ChevronDownIcon";
-import { capitalize } from "../config/utils";
+import { PlusIcon } from "../../icons/PlusIcon";
+import { VerticalDotsIcon } from "../../icons/VerticalDotsIcon";
+import { SearchIcon } from "../../icons/SearchIcon";
+import { ChevronDownIcon } from "../../icons/ChevronDownIcon";
+import { capitalize } from "../../../config/utils";
 
 const statusColorMap = {
   active: "primary",
@@ -40,7 +40,6 @@ const INITIAL_VISIBLE_COLUMNS = [
 ];
 
 export function DashBoardTable({
-  setComponent,
   showAddButton,
   columns,
   reports,
@@ -242,7 +241,7 @@ export function DashBoardTable({
             {showAddButton && (
               <Button
                 color="primary"
-                onClick={() => setComponent("form")}
+                // onClick={() => setComponent("form")}
                 endContent={<PlusIcon />}
               >
                 Add New Report

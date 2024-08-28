@@ -22,13 +22,13 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/dashboard/index.tsx",
-    "components/Card.jsx",
-    "components/Navbar.jsx",
-    "components/SideBar.jsx",
+    "pages/dashboard/page.tsx",
+    "ui/dashboard/card/Card.jsx",
+    "ui/Navbar.jsx",
+    "ui/SideBar.jsx",
     "config/dashBoardData.js",
-    "components/SearchIcon.jsx",
-    "components/VerticalDotsIcon.jsx"
-  ],
+    "ui/SearchIcon.jsx",
+    "ui/VerticalDotsIcon.jsx"
+, "pages/_app.jsx", "pages/_document.jsx", "pages/page.jsx"  ],
   "exclude": ["node_modules"]
 }
