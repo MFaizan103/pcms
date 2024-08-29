@@ -1,7 +1,7 @@
 import { Head } from "./head";
 
-import { ThemeSwitch } from "@/components/theme-switch";
-
+import { ThemeSwitch } from "@/ui/theme-switch";
+// import { Navbar } from "@/ui/dashboard/navbar/Navbar";
 export default function DefaultLayout({
   children,
 }: {
@@ -14,9 +14,8 @@ export default function DefaultLayout({
         <p>Switch Theme</p>
         <ThemeSwitch />
       </div>
-      <main className="container mx-auto max-w-7xl px-6 flex-grow pt-16">
-        {children}
-      </main>
+      {/* <Navbar /> */}
+      {children}
       <footer className="w-full flex items-center justify-center py-3">
         <div className="flex items-center gap-1 text-current">
           <span className="text-default-600">Designed By </span>

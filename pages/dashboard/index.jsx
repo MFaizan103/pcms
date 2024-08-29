@@ -1,7 +1,8 @@
 import React from "react";
-import { StatCard } from "./Card";
-import { DashBoardTable } from "./DashBoardTable";
-import { columns, reports, statusOptions } from "../config/dashBoardData";
+import { StatCard } from "../../ui/dashboard/card/Card";
+import { DashBoardTable } from "../../ui/dashboard/table/DashBoardTable";
+import { columns, reports, statusOptions } from "../../config/dashBoardData";
+import DashBoardLayout from "./layout";
 
 const cases = [
   { name: "Police Surgeon Office", cases: 45 },
@@ -11,11 +12,11 @@ const cases = [
 ];
 const Home = () => {
   return (
-    <>
-      <div className="flex flex-col gap-8  w-full">
-        <h1 className="text-3xl font-bold">Dashboard</h1>
+    <DashBoardLayout>
+      <div className="w-full">
+        <h1 className="text-xl font-bold my-4">Dashboard</h1>
 
-        <div className="flex gap-8 w-full">
+        <div className="flex gap-8">
           {cases.map((caseItem) => (
             <StatCard
               key={caseItem.name}
@@ -24,7 +25,7 @@ const Home = () => {
             />
           ))}
         </div>
-        <div className="mt-8">
+        <div className="mt-4">
           <DashBoardTable
             showAddButton={false}
             columns={columns}
@@ -33,8 +34,8 @@ const Home = () => {
           />
         </div>
       </div>
-    </>
+    </DashBoardLayout>
   );
 };
 
-export { Home };
+export default Home;
